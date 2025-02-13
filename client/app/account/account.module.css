@@ -1,0 +1,89 @@
+.productClassification {
+  border-radius: 4px;
+  overflow: visible;
+}
+.productClassification.open .classificationMenu {
+  display: block;
+}
+
+.productClassification.open .cardTitle i {
+  transform: rotate(180deg);
+}
+.sideCard {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: white;
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  text-align: center;
+  background-color: var(--border-color);
+  color: #000000;
+  padding: 8px 12px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cardTitle h5 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.cardTitle i {
+  transition: transform 0.3s;
+}
+
+.sideBar {
+  padding-right: 15px;
+}
+.filterSection {
+  padding: 15px;
+}
+.filterTitle {
+  font-weight: 500;
+  margin: 15px 0 10px;
+  color: #333;
+}
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.colorGroup {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.colorCircle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s;
+}
+
+.colorCircle:hover {
+  transform: scale(1.1);
+}
