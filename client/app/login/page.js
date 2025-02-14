@@ -4,7 +4,7 @@ export default function Login() {
   return (
     <div className={styles.loginPage}>
       <div className={styles.main}>
-        <img src="/DiveIn logo-light.png" alt="logo" className={styles.logo} />
+        <img src="?" alt="logo" className={styles.logo} />
         <div className={styles.line1}></div>
         <div className={styles.sectionLogin}>
           <h3>登入</h3>
