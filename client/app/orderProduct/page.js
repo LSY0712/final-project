@@ -56,7 +56,7 @@ export default function orderProduct() {
               <p>訂單號：2349023948203</p>
             </div>
             <div className={styles.biaoqian}>
-              <p style={{ color: '#219EBC' }}>已完成</p>
+              <p style={{ color: '#219EBC', fontWeight: '600' }}>已完成</p>
               <div className={styles.line3}></div>
               <i className="bi bi-trash-fill"></i>
             </div>
