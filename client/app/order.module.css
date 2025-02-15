@@ -107,7 +107,7 @@
   
   .sectionTop {
     display: flex;
-    width: 996px;
+    /* width: 996px; */
     align-items: center;
     flex: 1 0 0;
   }
@@ -183,13 +183,18 @@
     .PBcard a{
         font-size: 13px;
     }
-  .cardContent {
-    /* overflow: hidden;
-    white-space: nowrap; */
+    .cardContent {
+        overflow: hidden;
+        white-space: nowrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 3px;
+      }
+  .cardContent1 {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    /* gap: 2px; */
   }
   .price {
     display: flex;
