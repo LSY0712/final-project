@@ -1,4 +1,4 @@
-import styles from "./activity.module.css";
+import styles from "../order.module.css";
 
 export default function orderActivity() {
   return (
@@ -126,7 +126,7 @@ export default function orderActivity() {
             <div className={styles.productBox}>
               <div className={styles.PBcard}>
                 <img src="/dc48b717dc65c863526fd471b4d2a2c7.jpg" alt="" />
-                <div className={styles.cardContent}>
+                <div className={styles.cardContent1}>
                   <p>
                     ~春節旅遊特惠~
                     小琉球熊潛水浮潛體驗｜花瓶岩＆龍蝦洞＆美人洞（三擇一）
