@@ -93,17 +93,21 @@ export default function Account() {
                   </div>
                 </div>
               </div>
-              <div className={styles.line2}></div>
+              <div className={`${styles.IBbtn}`}>
+                  <div className={`${styles.hvbtn}`}>變更</div>
+                  <div className={`${styles.dfbtn}`}>取消</div>
+                </div>
+            </div>
+            <div className={styles.line2}></div>
 
-              <div className={styles.infoBox2}>
-                <div className={styles.iflist2}>
-                  <div className={styles.circle}></div>
-                  <div className={styles.ifcontent}>
-                    <p>user1</p>
-                    <p>OO等級 - 88/100</p>
-                    <p>user1@test.com</p>
-                    <div className={styles.dfbtn2}>選擇圖片</div>
-                  </div>
+            <div className={styles.infoBox2}>
+              <div className={styles.iflist2}>
+                <div className={styles.circle}></div>
+                <div className={styles.ifcontent}>
+                  <p>user1</p>
+                  <p>OO等級 - 88/100</p>
+                  <p>user1@test.com</p>
+                  <div className={styles.dfbtn2}>選擇圖片</div>
                 </div>
               </div>
             </div>
