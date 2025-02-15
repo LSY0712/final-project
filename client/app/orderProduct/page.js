@@ -46,7 +46,20 @@ export default function orderProduct() {
             <p style={{ margin: 0 }}>商品清單</p>
           </div>
         </div>
-        {/* Section and product boxes */}
+        <div className={styles.sectionTop}>
+          <div className={styles.SThover}>
+            <h6>全部</h6>
+          </div>
+          <div className={styles.STdefault}>
+            <h6>待收貨</h6>
+          </div>
+          <div className={styles.STdefault}>
+            <h6>已完成</h6>
+          </div>
+          <div className={styles.STdefault}>
+            <h6>取消</h6>
+          </div>
+        </div>
         {/* Repeat for each order section */}
         <div className={styles.sectionContent}>
           <div className={styles.SCtitle}>
