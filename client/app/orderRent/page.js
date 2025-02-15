@@ -1,6 +1,6 @@
 import styles from '../order.module.css';
 
-export default function orderProduct() {
+export default function orderRent() {
     return(
 <div className={styles.content}>
       <div className={styles.aside}>
