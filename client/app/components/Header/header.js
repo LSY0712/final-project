@@ -26,7 +26,7 @@ export default function Header() {
         <div className="d-none d-sm-flex">
           <div className="header-icon-container">
           <Link href="/">
-            <img src="/image/DiveIn-logo-dark-final.png" alt="Logo" />
+            <img src="/DiveIn logo-light.png" alt="Logo" />
           </Link>
           </div>
           <div className="header-list d-flex justify-content-between align-items-center">
