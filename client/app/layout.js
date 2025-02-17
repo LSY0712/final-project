@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "./components/Header/header";
 import Footer from "./components/Footer/footer";
 import Breadcrumb from "./components/Breadcrumb/breadcrumb";
+import { AuthProvider } from "@/hooks/use-auth";
 
 import Script from "next/script";
 
@@ -17,7 +18,7 @@ const notoSansTC = Noto_Sans_TC({
 });
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",  
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -61,10 +62,12 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Header />
-        <CartProvider>
-          {/* <Breadcrumb /> */}
-          {children}
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            {/* <Breadcrumb /> */}
+            {children}
+          </CartProvider>
+        </AuthProvider>
         <Footer />
       </body>
     </html>
