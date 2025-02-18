@@ -39,14 +39,14 @@ app.get("/api/users", async (req, res) => {
     res.status(200).json({
       status: "success",
       data: rows,
-      message: "取得資料成功"
-    })
+      message: "取得資料成功",
+    });
   } catch (err) {
     console.log(err);
     res.status(400).json({
       status: "error",
-      message: err.message ? err.message : "取得資料失敗"
-    })
+      message: err.message ? err.message : "取得資料失敗",
+    });
   }
 });
 
@@ -61,14 +61,14 @@ app.get("/api/users/search", async (req, res) => {
     res.status(200).json({
       status: "success",
       data: rows,
-      message: `搜尋成功, 條件: ${q}`
+      message: `搜尋成功, 條件: ${q}`,
     });
   } catch (err) {
     console.log(err);
     res.status(400).json({
       status: "error",
-      message: err.message ? err.message : "搜尋失敗"
-    })
+      message: err.message ? err.message : "搜尋失敗",
+    });
   }
 });
 
@@ -81,14 +81,14 @@ app.get("/api/users/:id", (req, res) => {
     res.status(200).json({
       status: "success",
       data: {},
-      message: `獲取特定 ID 的使用者: ${id}`
+      message: `獲取特定 ID 的使用者: ${id}`,
     });
   } catch (err) {
     console.log(err);
     res.status(404).json({
       status: "error",
-      message: err.message ? err.message : "搜尋失敗"
-    })
+      message: err.message ? err.message : "搜尋失敗",
+    });
   }
 });
 
@@ -98,22 +98,29 @@ app.post("/api/users", upload.none(), async (req, res) => {
   if (!account || !name || !mail || !password) {
     res.status(400).json({
       status: "error",
-      message: "請提供完整的使用者資訊!"
+      message: "請提供完整的使用者資訊!",
     });
   }
   const id = uuidv4();
   const head = await getRandomAvatar();
   const hashedPassword = await bcrypt.hash(password, 10);
-  const sql = "INSERT INTO `users` (`id`, `account`, `password`, `name`, `mail`, `head`) VALUES (?,?,?,?,?,?);";
+  const sql =
+    "INSERT INTO `users` (`id`, `account`, `password`, `name`, `mail`, `head`) VALUES (?,?,?,?,?,?);";
 
-  const result = await db.execute(sql, [id, account, hashedPassword, name, mail, head]);
+  const result = await db.execute(sql, [
+    id,
+    account,
+    hashedPassword,
+    name,
+    mail,
+    head,
+  ]);
   console.log(result);
-
 
   res.status(201).json({
     status: "success",
     data: { id },
-    message: "新增一個使用者成功"
+    message: "新增一個使用者成功",
   });
 });
 
@@ -144,21 +151,23 @@ app.put("/api/users/:account", checkToken, upload.none(), async (req, res) => {
       value.push(hashedPassword);
     }
     value.push(account);
-    const sql = `UPDATE users SET ${updateFields.join(", ")} WHERE account = ?;`;
+    const sql = `UPDATE users SET ${updateFields.join(
+      ", "
+    )} WHERE account = ?;`;
     const [result] = await db.execute(sql, value);
 
     if (result.affectedRows == 0) throw new Error("更新失敗");
 
     res.status(200).json({
       status: "success",
-      message: `更新特定 ID 的使用者: ${account}`
+      message: `更新特定 ID 的使用者: ${account}`,
     });
   } catch (err) {
     console.log(err);
     res.status(400).json({
       status: "error",
-      message: err.message ? err.message : "修改失敗"
-    })
+      message: err.message ? err.message : "修改失敗",
+    });
   }
 });
 
@@ -166,7 +175,7 @@ app.delete("/api/users/:id", (req, res) => {
   const { id } = req.params;
   res.status(200).json({
     status: "success",
-    message: `刪除特定 ID 的使用者: ${id}`
+    message: `刪除特定 ID 的使用者: ${id}`,
   });
 });
 
@@ -174,19 +183,19 @@ app.post("/api/users/login", upload.none(), async (req, res) => {
   const { account, password } = req.body;
 
   try {
-    if (!account || !password) throw new Error("請提供帳號和密碼")
+    if (!account || !password) throw new Error("請提供帳號和密碼");
 
-    console.log("收到的帳號:", account);  // 打印收到的帳號
+    console.log("收到的帳號:", account); // 打印收到的帳號
     const sql = "SELECT * FROM `users` WHERE account = ?;";
     const [rows] = await db.execute(sql, [account]);
 
     if (rows.length == 0) throw new Error("找不到使用者");
 
     const user = rows[0];
-    console.log("資料庫查詢結果:", user);  // 打印資料庫查詢結果
+    console.log("資料庫查詢結果:", user); // 打印資料庫查詢結果
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("密碼比對結果:", isMatch);  // 打印密碼比對結果
+    console.log("密碼比對結果:", isMatch); // 打印密碼比對結果
 
     if (!isMatch) throw new Error("帳號或密碼錯誤");
 
@@ -208,7 +217,7 @@ app.post("/api/users/login", upload.none(), async (req, res) => {
       message: "登入成功",
     });
   } catch (err) {
-    console.log("登入錯誤:", err);  // 打印錯誤詳細信息
+    console.log("登入錯誤:", err); // 打印錯誤詳細信息
     res.status(400).json({
       status: "error",
       message: err.message ? err.message : "登入失敗",
@@ -233,6 +242,33 @@ app.post("/api/users/logout", checkToken, (req, res) => {
   });
 });
 
+app.post("/api/users/register", async (req, res) => {
+  const { account, password } = req.body;
+
+  if (!account || !password) {
+    return res.status(400).json({ message: "請填寫帳號和密碼" });
+  }
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const query = "INSERT INTO users (account, password) VALUES (?, ?)";
+
+    // 執行查詢並插入資料
+    db.query(query, [account, hashedPassword], (err, result) => {
+      if (err) {
+        console.error("插入資料時發生錯誤:", err);
+        return res.status(500).json({ message: "Database error", error: err });
+      }
+      res.status(201).json({
+        message: "User registered successfully",
+        userId: result.insertId,
+      });
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Error hashing password", error: err });
+  }
+});
+
 app.post("/api/users/status", checkToken, (req, res) => {
   const { decoded } = req;
   const token = jwt.sign(
@@ -253,28 +289,29 @@ app.post("/api/users/status", checkToken, (req, res) => {
   });
 });
 
-
-
 app.listen(portNum, () => {
   console.log(`伺服器啟動中 http://localhost:${portNum}`);
 });
 
 function checkToken(req, res, next) {
   let token = req.get("Authorization");
-  if (!token) return res.status(401).json({
-    status: "error",
-    message: "無驗證資料, 請重新登入",
-  })
-  if (!token.startsWith("Bearer ")) return res.status(401).json({
-    status: "error",
-    message: "驗證資料錯誤, 請重新登入",
-  })
+  if (!token)
+    return res.status(401).json({
+      status: "error",
+      message: "無驗證資料, 請重新登入",
+    });
+  if (!token.startsWith("Bearer "))
+    return res.status(401).json({
+      status: "error",
+      message: "驗證資料錯誤, 請重新登入",
+    });
   token = token.slice(7);
   jwt.verify(token, secretKey, (err, decoded) => {
-    if (err) return res.status(401).json({
-      status: "error",
-      message: "驗證資料失效, 請重新登入",
-    })
+    if (err)
+      return res.status(401).json({
+        status: "error",
+        message: "驗證資料失效, 請重新登入",
+      });
     req.decoded = decoded;
     next();
   });
