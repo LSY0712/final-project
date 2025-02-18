@@ -140,9 +140,12 @@
 
 .ftext {
   color: #000;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .ctext {
   color: #ffb703;
   cursor: pointer;
+  text-decoration: none;
 }

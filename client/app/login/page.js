@@ -2,10 +2,9 @@
 import styles from "../Login.module.css";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
-
+import Link from "next/link";
 
 export default function Login() {
-
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
@@ -14,24 +13,21 @@ export default function Login() {
   const onclick = () => {
     console.log(account, password);
 
-    login(account, password)
+    login(account, password);
   };
 
   useEffect(() => {
-    if (!user) setCheckingAuth(false)
+    if (!user) setCheckingAuth(false);
   }, [user]);
 
   if (checkingAuth) {
-    return (
-      <></>
-    )
+    return <></>;
   }
-
 
   return (
     <div className={styles.loginPage}>
       <div className={styles.main}>
-        <img src="?" alt="logo" className={styles.logo} />
+        <img src="/DiveIn logo-light.png" alt="logo" className={styles.logo} />
         <div className={styles.line1}></div>
         <div className={styles.sectionLogin}>
           <h3>登入</h3>
@@ -77,8 +73,12 @@ export default function Login() {
               </div>
             </div>
             <div className={styles.fcBox}>
-              <p className={styles.ftext}>忘記密碼？</p>
-              <p className={styles.ctext}>註冊新帳號！</p>
+              <Link href="/forgot" className={styles.ftext}>
+                忘記密碼？
+              </Link>
+              <Link href="/register" className={styles.ctext}>
+                註冊新帳號！
+              </Link>
             </div>
           </div>
         </div>

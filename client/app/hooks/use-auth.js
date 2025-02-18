@@ -61,7 +61,40 @@ export function AuthProvider({ children }){
       alert(err.message)
     }
   };
+const register = async (account, password) => {
+  const API = "http://localhost:3005/api/users/register";  // 註冊 API 路徑
+  
+  if (!account || !password) {
+    alert("帳號或密碼不可為空");
+    return;
+  }  
+  const formData = new FormData();
+  formData.append("account", account);
+  formData.append("password", password);
 
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      body: formData,
+    });
+    const result = await res.json();
+    console.log(result);
+
+    if (result.status !== "success") throw new Error(result.message);
+
+    const token = result.data.token;
+    const newUser = jwt.decode(token);
+    setUser(newUser);
+    localStorage.setItem(appKey, token);  // 儲存 token
+
+    // 註冊成功後，跳轉或顯示提示
+    alert("註冊成功,請登入!");
+    router.replace(loginRoute);
+  } catch (err) {
+    console.log(err);
+    alert(err.message);  // 顯示錯誤訊息
+  }
+};
   useEffect(() => {    
     if(!user && protectedRoutes.includes(pathname)){
       alert("請先登入");
@@ -95,7 +128,7 @@ export function AuthProvider({ children }){
   }, []);
 
   return(
-    <AuthContext.Provider value={{user, login, logout}}>
+    <AuthContext.Provider value={{user, login, logout, register}}>
       {children}
     </AuthContext.Provider>
   )
